@@ -3,6 +3,7 @@ import MySQLdb
 import peewee
 import datetime
 import os
+import pandas
 
 title = """
    _____                   _ _             _____                      _                   
@@ -64,6 +65,22 @@ def menu():
     print("7: Descargar inventario en Excel")
     print("0: Salir")
 
+
+def select_items():
+    query = Items.select().dicts()
+    titulo = "LISTADO DE INVENTARIO DE INSUMOS"
+    print("            {}".format(titulo))
+    print()
+    print ("{:<10} {:<20} {:<40} {:<10} {:<10}".format('ID','NAME', 'DESCRIPTION', 'QUANTITY','VENDOR ID'))
+
+    for row in query:
+        id, name, description, cant, vendor = row.values()
+        print ("{:<10} {:<20} {:<40} {:<10} {:<10}".format(id, name, description, cant, vendor))
+
+    print()
+    print()
+    x = input()
+
 def insert_item():
     while True:
         item_name = input("Nombre del item: ")
@@ -98,6 +115,9 @@ def run():
         os.system("clear")
         menu()
         option = int(input("Seleccione una opcion: "))
+
+        if option == 1:
+            select_items()
 
         if option == 3:
             insert_item()
