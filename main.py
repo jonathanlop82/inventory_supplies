@@ -49,6 +49,16 @@ class Items(peewee.Model):
         database = database
         db_table = 'items'
 
+class Mantain(peewee.Model):
+    id = peewee.AutoField()
+    name = peewee.CharField()
+    date_of_purchase = peewee.DateTimeField()
+    mantain_period = peewee.IntegerField()
+    warranty_time = peewee.IntegerField()
+
+    class Meta:
+        database = database
+        db_table = 'mantains'
 
 def menu():
 
@@ -109,6 +119,9 @@ def run():
     if not(Items.table_exists()):
         Items.create_table()
     
+    if not(Mantain.table_exists()):
+        Mantain.create_table()
+
     while True:
         
         #Imprimir menu
